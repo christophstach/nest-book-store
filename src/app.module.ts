@@ -13,6 +13,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'mysql',
+        acquireTimeout: 20,
+        connectTimeout: 20,
         host: configService.get('DATABASE_HOST'),
         port: +configService.get<number>('DATABASE_PORT'),
         username: configService.get('DATABASE_USERNAME'),
