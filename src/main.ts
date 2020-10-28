@@ -27,7 +27,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
 
-  Logger.log(`Nest application starts listening on ${address}:${port}`);
+  Logger.log(
+    `Nest application starts listening on ${address}:${port}`,
+    'Bootstrap',
+  );
   await app.listen(port, address);
 }
 
