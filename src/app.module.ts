@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -10,19 +10,24 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'mysql',
-        acquireTimeout: 20,
-        connectTimeout: 20,
-        host: configService.get('DATABASE_HOST'),
-        port: +configService.get<number>('DATABASE_PORT'),
-        username: configService.get('DATABASE_USERNAME'),
-        password: configService.get('DATABASE_PASSWORD'),
-        database: configService.get('DATABASE_SCHEMA'),
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: false,
-      }),
+      inject: [ConfigService, Logger],
+      useFactory: (configService: ConfigService, logger: Logger) => {
+        logger.debug('TEEEST');
+        logger.debug(configService.get('DATABASE_HOST'));
+
+        return {
+          type: 'mysql',
+          acquireTimeout: 20,
+          connectTimeout: 20,
+          host: configService.get('DATABASE_HOST'),
+          port: +configService.get<number>('DATABASE_PORT'),
+          username: configService.get('DATABASE_USERNAME'),
+          password: configService.get('DATABASE_PASSWORD'),
+          database: configService.get('DATABASE_SCHEMA'),
+          entities: [__dirname + '/**/*.entity{.ts,.js}'],
+          synchronize: false,
+        };
+      },
     }),
     BooksModule,
   ],
