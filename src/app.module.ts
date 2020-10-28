@@ -10,15 +10,17 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
-      inject: [ConfigService, Logger],
-      useFactory: (configService: ConfigService, logger: Logger) => {
-        logger.debug('TEEEST');
-        logger.debug(configService.get('DATABASE_HOST'));
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        Logger.debug(configService.get('DATABASE_HOST'));
+        Logger.debug(+configService.get<number>('DATABASE_PORT'));
+        Logger.debug(configService.get('DATABASE_USERNAME'));
+        Logger.debug(configService.get('DATABASE_PASSWORD'));
+        Logger.debug(configService.get('DATABASE_SCHEMA'));
 
         return {
           type: 'mysql',
-          acquireTimeout: 20,
-          connectTimeout: 20,
+          connectTimeout: 30000,
           host: configService.get('DATABASE_HOST'),
           port: +configService.get<number>('DATABASE_PORT'),
           username: configService.get('DATABASE_USERNAME'),
