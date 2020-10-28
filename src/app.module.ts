@@ -12,15 +12,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-        Logger.debug(configService.get('DATABASE_HOST'));
-        Logger.debug(+configService.get<number>('DATABASE_PORT'));
-        Logger.debug(configService.get('DATABASE_USERNAME'));
-        Logger.debug(configService.get('DATABASE_PASSWORD'));
-        Logger.debug(configService.get('DATABASE_SCHEMA'));
-
         return {
           type: 'mysql',
-          connectTimeout: 30000,
           host: configService.get('DATABASE_HOST'),
           port: +configService.get<number>('DATABASE_PORT'),
           username: configService.get('DATABASE_USERNAME'),

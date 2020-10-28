@@ -5,8 +5,12 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
+  const address = '0.0.0.0';
+  const port = parseInt(process.env.PORT, 10) || 3000;
+
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
@@ -23,7 +27,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(parseInt(process.env.PORT, 10) || 3000, '0.0.0.0');
+  Logger.log(`Nest application starts listening on ${address}:${port}`);
+  await app.listen(port, address);
 }
 
 bootstrap();
