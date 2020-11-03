@@ -1,9 +1,8 @@
-import { CreateBookDto } from './create-book.dto';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateBookDto {
   @ApiProperty({ required: false })
-  id: number;
+  title: string;
 
   @ApiProperty({ required: false })
   author: string;
