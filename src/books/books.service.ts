@@ -28,9 +28,8 @@ export class BooksService {
   }
 
   async update(id: number, updateBookDto: UpdateBookDto) {
-    updateBookDto = { ...updateBookDto, id };
-    await this.bookRepository.update(id, updateBookDto);
-    return this.bookRepository.findOne(updateBookDto.id);
+    await this.bookRepository.update(id, { ...updateBookDto, id });
+    return this.bookRepository.findOne(id);
   }
 
   remove(id: number) {
