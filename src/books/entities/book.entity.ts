@@ -20,12 +20,6 @@ export class Book {
   @Column({ name: 'publication_year' })
   publicationYear: number;
 
-  @Column({ name: 'last_modified_date' })
-  lastModifiedDate: Date;
-
-  @Column({ name: 'created_date' })
-  createdDate: Date;
-
   @Column({ name: 'created_at' })
   createdAt: Date;
 

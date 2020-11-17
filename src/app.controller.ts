@@ -4,12 +4,10 @@ import { ApiExcludeEndpoint } from '@nestjs/swagger';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
   @Get()
-  @Redirect('/api', 301)
+  @Redirect()
   @ApiExcludeEndpoint()
-  getHello(): string {
-    return this.appService.getHello();
+  index() {
+    return { url: '/api', statusCode: 301 }
   }
 }
