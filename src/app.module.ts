@@ -14,11 +14,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       useFactory: (configService: ConfigService) => {
         return {
           type: 'mysql',
-          host: configService.get('DATABASE_HOST'),
-          port: +configService.get<number>('DATABASE_PORT'),
-          username: configService.get('DATABASE_USERNAME'),
-          password: configService.get('DATABASE_PASSWORD'),
-          database: configService.get('DATABASE_SCHEMA'),
+          host: configService.get('MYSQL_HOST'),
+          port: +configService.get<number>('MYSQL_PORT'),
+          username: configService.get('MYSQL_USER'),
+          password: configService.get('MYSQL_PASSWORD'),
+          database: configService.get('MYSQL_DATABASE'),
           entities: [__dirname + '/**/*.entity{.ts,.js}'],
           synchronize: false,
         };
