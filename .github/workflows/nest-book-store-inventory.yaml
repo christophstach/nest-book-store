@@ -1,4 +1,4 @@
-name: nest-book-store-auth
+name: nest-book-store-inventory
 
 on: [push]
 
