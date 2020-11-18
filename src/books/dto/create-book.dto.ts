@@ -16,12 +16,6 @@ export class CreateBookDto {
   @ApiProperty({ required: false, example: 2020 })
   publicationYear: number;
 
-  @ApiProperty({ required: false })
-  lastModifiedDate: Date;
-
-  @ApiProperty()
-  createdDate: Date;
-
   @ApiProperty()
   createdAt: Date;
 

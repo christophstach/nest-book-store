@@ -17,12 +17,6 @@ export class UpdateBookDto {
   publicationYear: number;
 
   @ApiProperty({ required: false })
-  lastModifiedDate: Date;
-
-  @ApiProperty({ required: false })
-  createdDate: Date;
-
-  @ApiProperty({ required: false })
   createdAt: Date;
 
   @ApiProperty({ required: false })

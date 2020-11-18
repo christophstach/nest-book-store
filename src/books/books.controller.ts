@@ -1,21 +1,8 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Put,
-  Param,
-  Delete,
-  Res,
-  HttpStatus,
-  HttpException,
-  Logger,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { ApiTags } from '@nestjs/swagger';
-import fastify from 'fastify';
 
 @Controller('books')
 @ApiTags('books')
@@ -33,34 +20,28 @@ export class BooksController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const book = await this.booksService.findOne(+id);
-
-    if (book) {
-      return book;
-    } else {
+  findOne(@Param('id') id: string) {
+    try {
+      return  this.booksService.findOne(id);
+    } catch (error) {
       throw new HttpException('Book not found!', HttpStatus.NOT_FOUND);
     }
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
-    const book = await this.booksService.update(+id, updateBookDto);
-
-    if (book) {
-      return book;
-    } else {
+  update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
+    try {
+      return this.booksService.update(id, updateBookDto);
+    } catch (error) {
       throw new HttpException('Book not found!', HttpStatus.NOT_FOUND);
     }
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    const book = await this.booksService.remove(+id);
-
-    if (book) {
-      return book;
-    } else {
+  remove(@Param('id') id: string) {
+    try {
+      return this.booksService.remove(id);
+    } catch (error) {
       throw new HttpException('Book not found!', HttpStatus.NOT_FOUND);
     }
   }

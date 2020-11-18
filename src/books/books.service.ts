@@ -23,30 +23,19 @@ export class BooksService {
     return this.bookRepository.find();
   }
 
-  async findOne(id: number) {
-    if ((await this.bookRepository.count({ id })) > 0) {
-      return this.bookRepository.findOne(id);
-    } else {
-      return false;
-    }
+  findOne(id: string) {
+    return this.bookRepository.findOneOrFail(id);
   }
 
-  async update(id: number, updateBookDto: UpdateBookDto) {
-    if ((await this.bookRepository.count({ id })) > 0) {
-      await this.bookRepository.update(id, { ...updateBookDto, id });
-      return this.bookRepository.findOne(id);
-    } else {
-      return false;
-    }
+  async update(id: string, updateBookDto: UpdateBookDto) {
+    await this.bookRepository.update(id, { ...updateBookDto, id });
+    return this.bookRepository.findOneOrFail(id);
   }
 
-  async remove(id: number) {
-    if ((await this.bookRepository.count({ id })) > 0) {
-      const book = this.bookRepository.findOne(id);
-      await this.bookRepository.delete(id);
-      return book;
-    } else {
-      return false;
-    }
+  async remove(id: string) {
+    const book = await this.bookRepository.findOneOrFail(id);
+    await this.bookRepository.delete(id);
+
+    return book;
   }
 }

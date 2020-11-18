@@ -20,6 +20,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
           database: configService.get('MYSQL_DATABASE'),
           entities: [__dirname + '/**/*.entity{.ts,.js}'],
           synchronize: false,
+          dropSchema: false
+
         };
       },
     }),
